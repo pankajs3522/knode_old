@@ -212,7 +212,7 @@ if (mysqli_num_rows($result) == 0) {
 
     <!-- Add Company Modal -->
 
-    <div class="modal fade" id="addCompanyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="addCompanyModal" tabindex="-1" role="dialog"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -240,7 +240,7 @@ if (mysqli_num_rows($result) == 0) {
 
     <!-- Edit Company Modal -->
 
-    <div class="modal fade" id="editCompanyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="editCompanyModal" tabindex="-1" role="dialog"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -275,7 +275,7 @@ if (mysqli_num_rows($result) == 0) {
 
     <!-- Add Filter Modal -->
 
-    <div class="modal fade" id="addFilterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="addFilterModal" tabindex="-1" role="dialog"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

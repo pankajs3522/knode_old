@@ -8,9 +8,14 @@ $name = mysqli_real_escape_string($con,$_POST['name']);
 $description = mysqli_real_escape_string($con,$_POST['description']);
 $from = mysqli_real_escape_string($con,$_GET['from']);
 $company = mysqli_real_escape_string($con,$_GET['company']);
+if($company == "")
+{
+    $company = mysqli_real_escape_string($con,$_POST['company']);
+}
+//echo $company;
 $active = mysqli_real_escape_string($con,$_POST['status']);
 
-$sql = "UPDATE survey_details SET name = '".$name."', description = '".$description."', status = '".$active."' WHERE id = ".$id;
+$sql = "UPDATE survey_details SET name = '".$name."', description = '".$description."', company = '".$company."', status = '".$active."' WHERE id = ".$id;
 
 if(mysqli_query($con, $sql))
 {

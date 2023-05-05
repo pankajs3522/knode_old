@@ -3,7 +3,7 @@ include("db.ini.php");
 include("auth.ini.php");
 
 $comp = "";
-$com="";
+$com = "";
 if (isset($_GET['company']) && $_GET['company'] != "") {
     $com = mysqli_real_escape_string($con, $_GET['company']);
     $comp = " AND company=" . mysqli_real_escape_string($con, $_GET['company']);
@@ -92,9 +92,9 @@ if (mysqli_num_rows($result) == 0) {
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary"><a href='javascript:history.go(-1);'>< Back</a><button
-                                    style="float:right;cursor:pointer;border:0px" data-toggle="modal"
-                                    data-target="#addFilterModal"><i class="fas fa-filter"></i> Filter</h6>
+                            <h6 class="m-0 font-weight-bold text-primary"><a href='javascript:history.go(-1);'>
+                                    < Back</a><button style="float:right;cursor:pointer;border:0px" data-toggle="modal"
+                                            data-target="#addFilterModal"><i class="fas fa-filter"></i> Filter</h6>
 
                         </div>
                         <div class="card-body">
@@ -224,8 +224,7 @@ if (mysqli_num_rows($result) == 0) {
 
     <!-- Add survey Modal -->
 
-    <div class="modal fade" id="addsurveyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addsurveyModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -234,7 +233,8 @@ if (mysqli_num_rows($result) == 0) {
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" action="survey_new.php?from=<?php echo basename($_SERVER['PHP_SELF']); ?>&company=<?php echo  $com; ?>">
+                <form method="post"
+                    action="survey_new.php?from=<?php echo basename($_SERVER['PHP_SELF']); ?>&company=<?php echo $com; ?>">
                     <div class="modal-body">
                         <input type="text" required class="form-control" name="name" placeholder="Name of survey"><br>
                         <textarea required class="form-control" name="description"
@@ -252,8 +252,7 @@ if (mysqli_num_rows($result) == 0) {
 
     <!-- Edit survey Modal -->
 
-    <div class="modal fade" id="editsurveyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="editsurveyModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -262,13 +261,45 @@ if (mysqli_num_rows($result) == 0) {
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" action="survey_edit.php?from=<?php echo basename($_SERVER['PHP_SELF']); ?>&company=<?php echo  $com; ?>">
+                <form method="post"
+                    action="survey_edit.php?from=<?php echo basename($_SERVER['PHP_SELF']); ?>&company=<?php echo $com; ?>">
                     <div class="modal-body">
                         <input type="hidden" id="id_edit" name="id"><br>
                         <input type="text" required class="form-control" id="name_edit" name="name"
                             placeholder="Name of survey"><br>
                         <textarea required class="form-control" id="desc_edit" name="description"
                             placeholder="Description"></textarea><br>
+                        <?php
+                        $qry = "SELECT * FROM companies";
+                        $rst = mysqli_query($con, $qry) or die(mysqli_error($con));
+                        if (mysqli_num_rows($rst) == 0) {
+                        } else {
+                            ?>
+                            Company:<br>
+                            <select id="company_edit" class="form-control" name="company">
+                                <option value="0">Select Company</option>
+                                <?php
+                                while ($rw = mysqli_fetch_array($rst)) {
+                                    if ($rw['active'] == 1) {
+                                        if($com != "" && $com == $rw['id']){
+                                        ?>
+                                        <option value="<?php echo $rw['id']; ?>" selected><?php echo $rw['name']; ?></option>
+                                        <?php
+                                        }
+                                        else
+                                        {
+                                            ?>
+                                        <option value="<?php echo $rw['id']; ?>"><?php echo $rw['name']; ?></option>
+                                            <?php
+                                        }
+                                    }
+                                }
+                                ?>
+                            </select><br>
+                            <?php
+                        }
+                        ?>
+                        Status:<br>
                         <select id="name_edit" class="form-control" name="status">
                             <option value="1">Active</option>
                             <option value="0">Inactive</option>
@@ -285,8 +316,7 @@ if (mysqli_num_rows($result) == 0) {
 
     <!-- Add Filter Modal -->
 
-    <div class="modal fade" id="addFilterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addFilterModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
