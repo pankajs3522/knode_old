@@ -95,7 +95,7 @@ if (mysqli_num_rows($result) == 0) {
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr>
+                                        <tr style="cursor:pointer">
                                             <th>S&nbsp;No</th>
                                             <th>Name</th>
                                             <th>Description</th>
@@ -105,7 +105,7 @@ if (mysqli_num_rows($result) == 0) {
                                         </tr>
                                     </thead>
                                     <tfoot>
-                                        <tr>
+                                        <tr style="cursor:pointer">
                                             <th>S&nbsp;No</th>
                                             <th>Name</th>
                                             <th>Description</th>
