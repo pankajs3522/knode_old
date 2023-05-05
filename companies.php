@@ -4,6 +4,7 @@ include("auth.ini.php");
 
 $count_company = 0;
 $count_company_active = 0;
+$count_company_survey = 0;
 
 //Count All Companies
 $query1 = "SELECT * FROM companies";
@@ -11,19 +12,23 @@ $result1 = mysqli_query($con, $query1) or die(mysqli_error($con));
 if (mysqli_num_rows($result1) == 0) {
 } else {
 
-    while (mysqli_fetch_array($result1)) {
+    while ($row=mysqli_fetch_array($result1)) {
+        if($row['active'] == 1)
+        {
+            $count_company_active = $count_company_active + 1;
+        }
         $count_company = $count_company + 1;
     }
 }
 
 //Count Active Companies
-$query = "SELECT * FROM companies WHERE active=1";
+$query = "SELECT COUNT(company) FROM survey_details GROUP BY company";
 $result = mysqli_query($con, $query) or die(mysqli_error($con));
 if (mysqli_num_rows($result) == 0) {
 } else {
 
-    while (mysqli_fetch_array($result)) {
-        $count_company_active = $count_company_active + 1;
+    while ($row1=mysqli_fetch_array($result)) {
+        $count_company_survey=$row1['COUNT(company)'];
     }
 }
 ?>
@@ -134,7 +139,9 @@ if (mysqli_num_rows($result) == 0) {
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Companies (with active surveys)
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $count_company_survey; ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>

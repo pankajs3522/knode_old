@@ -1,6 +1,41 @@
 <?php
 include("db.ini.php");
 include("auth.ini.php");
+
+$count_survey = 0;
+$count_survey_left = 0;
+$count_company = 0;
+
+//Count Active Companies
+$query = "SELECT * FROM survey_details";
+$result = mysqli_query($con, $query) or die(mysqli_error($con));
+if (mysqli_num_rows($result) == 0) {
+} else {
+
+    while ($row = mysqli_fetch_array($result)) {
+        $count_survey = $count_survey + 1;
+        if($row['status'] == 0)
+        {
+            $count_survey_left++;
+        }
+    }
+}
+
+//Count All Companies
+$query1 = "SELECT * FROM companies";
+$result1 = mysqli_query($con, $query1) or die(mysqli_error($con));
+if (mysqli_num_rows($result1) == 0) {
+} else {
+
+    while (mysqli_fetch_array($result1)) {
+        $count_company = $count_company + 1;
+    }
+}
+
+$per=0;
+
+$per = ($count_survey_left/$count_survey)*100;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,33 +95,37 @@ include("auth.ini.php");
                     <!-- Content Row -->
                     <div class="row">
 
-                        <div class="col-xl-3 col-md-6 mb-4 select_box">
+                        <div class="col-xl-3 col-md-6 mb-4 select_box" onclick='window.open("companies_view.php?filter_active=all","_self");'>
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Number of Active Surveys
+                                                Total Companies
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $count_company; ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            <i class="fas fa-industry fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-xl-3 col-md-6 mb-4 select_box">
+                        <div class="col-xl-3 col-md-6 mb-4 select_box" onclick='window.open("survey_view.php?filter_active=all","_self");'>
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Submitted Surveys - all
+                                                Total Surveys
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $count_survey; ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -106,12 +145,14 @@ include("auth.ini.php");
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">40%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                        <?php echo $per; ?>%
+                                                    </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
                                                         <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                            style="width: <?php echo $per; ?>%" aria-valuenow="<?php echo $per; ?>" aria-valuemin="0"
                                                             aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
