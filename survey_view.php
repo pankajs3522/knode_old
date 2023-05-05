@@ -125,21 +125,21 @@ if (mysqli_num_rows($result) == 0) {
                                             $filter = mysqli_real_escape_string($con, $_GET['filter_active']);
                                             if ($filter == "all") {
                                                 if ($com != "") {
-                                                    $query2 = "SELECT * FROM survey_details WHERE company = " . $com;
+                                                    $query2 = "SELECT * FROM survey_details WHERE company = " . $com ." ORDER BY id DESC";
                                                 } else {
-                                                    $query2 = "SELECT * FROM survey_details";
+                                                    $query2 = "SELECT * FROM survey_details ORDER BY id DESC";
                                                 }
 
                                             } else if ($filter == 1) {
-                                                $query2 = "SELECT * FROM survey_details WHERE status=1 " . $comp;
+                                                $query2 = "SELECT * FROM survey_details WHERE status=1 " . $comp ." ORDER BY id DESC";
                                             } else if ($filter == 0) {
-                                                $query2 = "SELECT * FROM survey_details WHERE status=0 " . $comp;
+                                                $query2 = "SELECT * FROM survey_details WHERE status=0 " . $comp ." ORDER BY id DESC";
                                             }
                                         } else {
                                             if ($com != "") {
-                                                $query2 = "SELECT * FROM survey_details WHERE company = " . $com;
+                                                $query2 = "SELECT * FROM survey_details WHERE company = " . $com ." ORDER BY id DESC";
                                             } else {
-                                                $query2 = "SELECT * FROM survey_details";
+                                                $query2 = "SELECT * FROM survey_details ORDER BY id DESC";
                                             }
                                         }
                                         //echo $query2;
@@ -187,7 +187,7 @@ if (mysqli_num_rows($result) == 0) {
                                                         </button>
                                                         &nbsp;
                                                         <button class="btn btn-primary">
-                                                            <font class="fas fa-clipboard-list"></font> View Data
+                                                            <font class="fas fa-clipboard-list"></font> View Responses
                                                         </button>
                                                         &nbsp;
                                                         <button class="btn btn-danger">

@@ -120,14 +120,14 @@ if (mysqli_num_rows($result) == 0) {
                                         if (isset($_GET['filter_active']) && $_GET['filter_active'] != "") {
                                             $filter = mysqli_real_escape_string($con, $_GET['filter_active']);
                                             if ($filter == "all") {
-                                                $query2 = "SELECT * FROM companies";
+                                                $query2 = "SELECT * FROM companies ORDER BY id DESC";
                                             } else if ($filter == 1) {
-                                                $query2 = "SELECT * FROM companies WHERE active=1";
+                                                $query2 = "SELECT * FROM companies WHERE active=1 ORDER BY id DESC";
                                             } else if ($filter == 0) {
-                                                $query2 = "SELECT * FROM companies WHERE active=0";
+                                                $query2 = "SELECT * FROM companies WHERE active=0 ORDER BY id DESC";
                                             }
                                         } else {
-                                            $query2 = "SELECT * FROM companies";
+                                            $query2 = "SELECT * FROM companies ORDER BY id DESC";
                                         }
 
                                         $result2 = mysqli_query($con, $query2) or die(mysqli_error($con));
